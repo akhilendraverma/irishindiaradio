@@ -62,7 +62,9 @@ def list_songs(cfg):
     if not tracks:
         print("The playlist is empty.")
     for i, t in enumerate(tracks, 1):
-        print(f"{i:>3}. {t.get('title')}, by {t.get('artist')} ({t.get('license')})  {t.get('file')}")
+        f = t.get("file")
+        f = f[0] if isinstance(f, list) else f
+        print(f"{i:>3}. {t.get('title')}, by {t.get('artist')} ({t.get('license')})  {f}")
 
 
 def add(start_path=""):
@@ -118,8 +120,10 @@ def remove(n):
         sys.exit(f"There is no song number {n}. Run: python add_song.py --list")
     t = tracks.pop(n - 1)
     save(cfg)
-    f = ROOT / t.get("file", "")
-    if t.get("file", "").startswith("music/") and f.is_file() and not any(x.get("file") == t["file"] for x in tracks):
+    ref = t.get("file", "")
+    ref = ref if isinstance(ref, str) else ""
+    f = ROOT / ref
+    if ref.startswith("music/") and f.is_file() and not any(x.get("file") == ref for x in tracks):
         f.unlink()
     print(f"Removed \"{t.get('title')}\".")
 

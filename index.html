@@ -127,6 +127,7 @@
   audio.preload = "auto";
 
   let cfg = null, tracks = [], order = [], idx = -1, played = 0;
+  let current = null;
   let started = false, paused = false, announcing = false, lastHourKey = null, errorsInRow = 0, actx = null;
 
   // Ashoka Chakra spokes
@@ -300,18 +301,25 @@
     if (played > 0 && cfg.announce_every > 0 && played % cfg.announce_every === 0) await announce();
     if (paused) { idx--; return; }
     const t = tracks[order[idx]];
-    audio.src = t.file;
+    current = { sources: Array.isArray(t.file) ? t.file : [t.file], i: 0 };
+    audio.src = current.sources[0];
     audio.volume = Number($("volume").value);
     showNow(t);
     renderNext();
     played++;
     try { await audio.play(); }
-    catch (e) { $("now-label").textContent = "Press play to continue"; }
+    catch (e) { if (e && e.name === "NotAllowedError") $("now-label").textContent = "Press play to continue"; }
   }
 
   audio.addEventListener("ended", () => { errorsInRow = 0; playNext(); });
-  audio.addEventListener("playing", () => { errorsInRow = 0; });
+  audio.addEventListener("playing", () => { errorsInRow = 0; if (!announcing) $("now-label").textContent = "Now playing"; });
   audio.addEventListener("error", () => {
+    if (current && current.i + 1 < current.sources.length) {  // try the backup format first
+      current.i++;
+      audio.src = current.sources[current.i];
+      audio.play().catch(() => {});
+      return;
+    }
     errorsInRow++;
     console.warn("Could not play", audio.src);
     if (errorsInRow < tracks.length) setTimeout(playNext, 800);

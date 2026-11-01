@@ -9,5 +9,50 @@
   "announce_every": 1,
   "announce_on_the_hour": true,
   "shuffle": true,
-  "tracks": []
+  "tracks": [
+    {
+      "title": "Raga Kaushi Kanra (sitar & tabla)",
+      "artist": "Ranjit Makkuni, with Akram Khan on tabla",
+      "file": [
+        "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/24/RanjitMakkuniRagaKaushiKanra.ogg/RanjitMakkuniRagaKaushiKanra.ogg.mp3",
+        "https://upload.wikimedia.org/wikipedia/commons/2/24/RanjitMakkuniRagaKaushiKanra.ogg"
+      ],
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_url": "https://commons.wikimedia.org/wiki/File:RanjitMakkuniRagaKaushiKanra.ogg"
+    },
+    {
+      "title": "Raag Jhinjhoti",
+      "artist": "Ustad Abdul Karim Khan",
+      "file": [
+        "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a6/Ustad_Abdul_Karim_Khan_-_Raag_Jhinjhoti.ogg/Ustad_Abdul_Karim_Khan_-_Raag_Jhinjhoti.ogg.mp3",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a6/Ustad_Abdul_Karim_Khan_-_Raag_Jhinjhoti.ogg"
+      ],
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Ustad_Abdul_Karim_Khan_-_Raag_Jhinjhoti.ogg"
+    },
+    {
+      "title": "Karaharapriya – Athi (1910)",
+      "artist": "Brahma Sri Tiruchendur Appadurai Aiyengar",
+      "file": [
+        "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/86/Brahma_Sri_Tiruchendur_Appadurai_Aiyengar_~_Karaharapriya-Athi_(1910).ogg/Brahma_Sri_Tiruchendur_Appadurai_Aiyengar_~_Karaharapriya-Athi_(1910).ogg.mp3",
+        "https://upload.wikimedia.org/wikipedia/commons/8/86/Brahma_Sri_Tiruchendur_Appadurai_Aiyengar_~_Karaharapriya-Athi_(1910).ogg"
+      ],
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Brahma_Sri_Tiruchendur_Appadurai_Aiyengar_~_Karaharapriya-Athi_(1910).ogg"
+    },
+    {
+      "title": "Raga Tilanga",
+      "artist": "Unknown artist (BnF archive recording)",
+      "file": [
+        "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c1/Raga_Tilanga.ogg/Raga_Tilanga.ogg.mp3",
+        "https://upload.wikimedia.org/wikipedia/commons/c/c1/Raga_Tilanga.ogg"
+      ],
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Raga_Tilanga.ogg"
+    }
+  ]
 }
