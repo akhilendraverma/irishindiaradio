@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Irish India Radio · Live from Dublin</title>
+<meta name="description" content="Irish India Radio: music for the Indian community in Ireland, live from Dublin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fbf8f1; --ink: #17171a; --muted: #5e5b55; --rule: #d9d3c5;
+    --emerald: #0b6e4f; --emerald-dark: #06402e; --saffron: #e0861f; --on-air: #e5383b;
+    --serif: "Source Serif 4", Georgia, serif; --display: "Playfair Display", Georgia, serif;
+    --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 var(--serif); }
+  a { color: var(--emerald); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 18px 20px 40px; }
+  .topline { display: flex; justify-content: space-between; font: 500 12px var(--sans); text-transform: uppercase;
+    letter-spacing: .08em; color: var(--muted); border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+  .topline a { text-decoration: none; }
+  .title-row { display: flex; align-items: center; justify-content: center; gap: clamp(12px, 3vw, 32px); margin: 26px 0 4px; }
+  .title-row h1 { margin: 0; font: 900 clamp(34px, 7vw, 64px)/1 var(--display); text-align: center; }
+  .flag { width: clamp(40px, 6vw, 76px); height: auto; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+  .tagline { text-align: center; font-style: italic; color: var(--muted); margin: 6px 0 22px; }
+
+  .studio { background: linear-gradient(160deg, var(--emerald) 0%, var(--emerald-dark) 100%); color: #fff;
+    border-radius: 18px; padding: 26px clamp(18px, 4vw, 36px) 28px; box-shadow: 0 14px 40px rgba(6,64,46,.25); }
+  .studio-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .onair { display: inline-flex; align-items: center; gap: 8px; font: 700 12px var(--sans); letter-spacing: .14em;
+    padding: 6px 12px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; opacity: .55; }
+  .onair .dot { width: 9px; height: 9px; border-radius: 50%; background: #bbb; }
+  .live .onair { opacity: 1; border-color: var(--on-air); }
+  .live .onair .dot { background: var(--on-air); animation: pulse 1.4s infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(229,56,59,.7); } 50% { box-shadow: 0 0 0 7px rgba(229,56,59,0); } }
+  .city { font: 600 12px var(--sans); letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+  .clock { text-align: center; margin: 22px 0 6px; }
+  .clock .time { font: 700 clamp(46px, 11vw, 88px)/1 var(--sans); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .clock .date { font: 500 16px var(--sans); opacity: .85; margin-top: 6px; }
+
+  .now { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 12px;
+    padding: 16px 18px; margin-top: 22px; min-height: 104px; }
+  .now .label { font: 600 11px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--saffron); }
+  .now .song { font: 700 22px/1.25 var(--display); margin: 6px 0 2px; }
+  .now .artist { font: 400 15px var(--sans); opacity: .85; }
+  .bar { height: 5px; background: rgba(255,255,255,.18); border-radius: 3px; margin-top: 14px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--saffron); transition: width .25s linear; }
+  .announce-text { font: italic 15px var(--serif); opacity: .9; margin-top: 8px; }
+
+  .controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  button { font: 600 15px var(--sans); cursor: pointer; border: 0; border-radius: 999px; }
+  .play { background: var(--saffron); color: #fff; padding: 14px 30px; font-size: 17px; box-shadow: 0 6px 18px rgba(224,134,31,.4); }
+  .play:hover { filter: brightness(1.07); }
+  .ghost { background: rgba(255,255,255,.12); color: #fff; padding: 11px 18px; }
+  .ghost:hover { background: rgba(255,255,255,.2); }
+  .ghost:disabled { opacity: .4; cursor: default; }
+  .vol { display: flex; align-items: center; gap: 8px; font: 500 13px var(--sans); }
+  .vol input { accent-color: var(--saffron); width: 110px; }
+
+  h2 { font: 700 14px var(--sans); text-transform: uppercase; letter-spacing: .1em; margin: 34px 0 12px;
+    border-top: 3px solid var(--emerald); padding-top: 8px; }
+  .next { list-style: none; padding: 0; margin: 0; }
+  .next li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .next .a { color: var(--muted); font-size: 15px; }
+  .empty { color: var(--muted); font-style: italic; }
+  .credits { font-size: 14.5px; padding-left: 18px; }
+  .credits li { margin-bottom: 6px; }
+  footer { margin-top: 30px; font-size: 14px; color: #3c3a35; border-top: 4px double var(--ink); padding-top: 16px; }
+  @media (max-width: 560px) { .vol input { width: 80px; } .controls { gap: 10px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topline"><span id="topdate"></span><a id="news-link" href="https://akhilendraverma.github.io/irishindiatimes/">Read IrishIndiaTimes news →</a></div>
+
+  <div class="title-row">
+    <svg class="flag" viewBox="0 0 90 60" role="img" aria-label="Flag of Ireland"><rect width="30" height="60" fill="#169B62"/><rect x="30" width="30" height="60" fill="#fff"/><rect x="60" width="30" height="60" fill="#FF883E"/></svg>
+    <h1 id="station">Irish India Radio</h1>
+    <svg class="flag" id="india-flag" viewBox="0 0 90 60" role="img" aria-label="Flag of India"><rect width="90" height="20" fill="#FF9933"/><rect y="20" width="90" height="20" fill="#fff"/><rect y="40" width="90" height="20" fill="#138808"/><g id="chakra" stroke="#000080" stroke-width="0.7" fill="none"><circle cx="45" cy="30" r="8.5" stroke-width="1.2"/></g><circle cx="45" cy="30" r="1.6" fill="#000080"/></svg>
+  </div>
+  <p class="tagline">Music for the Indian community in Ireland, live from Dublin</p>
+
+  <div class="studio" id="studio">
+    <div class="studio-top">
+      <span class="onair"><span class="dot"></span>ON AIR</span>
+      <span class="city" id="city">Dublin · Ireland</span>
+    </div>
+    <div class="clock">
+      <div class="time" id="time">--:--:--</div>
+      <div class="date" id="date">&nbsp;</div>
+    </div>
+    <div class="now" aria-live="polite">
+      <div class="label" id="now-label">Ready</div>
+      <div class="song" id="song">Press “Start listening” to tune in</div>
+      <div class="artist" id="artist"></div>
+      <div class="announce-text" id="announce-text"></div>
+      <div class="bar"><span id="progress"></span></div>
+    </div>
+    <div class="controls">
+      <button class="play" id="play">▶ Start listening</button>
+      <button class="ghost" id="skip" disabled>Skip ⏭</button>
+      <button class="ghost" id="id-btn" disabled>Station ID 📢</button>
+      <label class="vol">🔊 <input id="volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Volume"></label>
+    </div>
+  </div>
+
+  <h2>Up next</h2>
+  <ul class="next" id="next"></ul>
+
+  <h2>Music credits</h2>
+  <ul class="credits" id="credits"></ul>
+
+  <footer>
+    <p><strong>About the music.</strong> Every track on Irish India Radio is played under the licence shown in the
+    credits above. All rights remain with the artists and rights holders. The station announcements use your
+    browser's built-in voice and show Dublin time.</p>
+    <p>Rights holders with a question about any track can contact us at <a id="contact" href="#"></a>.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const audio = new Audio();
+  audio.preload = "auto";
+
+  let cfg = null, tracks = [], order = [], idx = -1, played = 0;
+  let started = false, paused = false, announcing = false, lastHourKey = null, errorsInRow = 0, actx = null;
+
+  // Ashoka Chakra spokes
+  const chakra = $("chakra");
+  for (let a = 0; a < 24; a++) {
+    const r = a * 15 * Math.PI / 180, l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    l.setAttribute("x1", 45); l.setAttribute("y1", 30);
+    l.setAttribute("x2", (45 + 8.5 * Math.cos(r)).toFixed(2)); l.setAttribute("y2", (30 + 8.5 * Math.sin(r)).toFixed(2));
+    chakra.appendChild(l);
+  }
+
+  // ---------- time ----------
+  const tz = () => (cfg && cfg.timezone) || "Europe/Dublin";
+  const part = (d, opts) => d.toLocaleString("en-IE", { timeZone: tz(), ...opts });
+
+  function tick() {
+    const d = new Date();
+    $("time").textContent = part(d, { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+    const longDate = part(d, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    $("date").textContent = longDate + " · " + part(d, { timeZoneName: "short" }).split(" ").pop();
+    $("topdate").textContent = longDate;
+
+    // Station ID on the hour, over the music
+    if (started && !paused && cfg && cfg.announce_on_the_hour) {
+      const minute = Number(part(d, { minute: "numeric" }));
+      const hourKey = part(d, { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", hour12: false });
+      if (minute === 0 && hourKey !== lastHourKey && !announcing) {
+        lastHourKey = hourKey;
+        announce();
+      }
+    }
+  }
+
+  function announcementText() {
+    const d = new Date();
+    const vals = {
+      station: cfg.station, city: cfg.city,
+      weekday: part(d, { weekday: "long" }),
+      day: ordinal(Number(part(d, { day: "numeric" }))),
+      month: part(d, { month: "long" }),
+      year: part(d, { year: "numeric" }),
+      time: part(d, { hour: "numeric", minute: "2-digit", hour12: true }).replace(/\./g, "").toUpperCase(),
+    };
+    return cfg.announcement.replace(/\{(\w+)\}/g, (m, k) => (k in vals ? vals[k] : m));
+  }
+  function ordinal(n) {
+    const s = ["th", "st", "nd", "rd"], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  // ---------- sound ----------
+  function chime() {
+    return new Promise((res) => {
+      try {
+        actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+        if (actx.state === "suspended") actx.resume();
+        const t = actx.currentTime;
+        [[659.25, 0], [880, 0.22], [1318.5, 0.44]].forEach(([f, o]) => {
+          const osc = actx.createOscillator(), g = actx.createGain();
+          osc.type = "sine"; osc.frequency.value = f;
+          g.gain.setValueAtTime(0.0001, t + o);
+          g.gain.exponentialRampToValueAtTime(0.22, t + o + 0.03);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + o + 0.7);
+          osc.connect(g).connect(actx.destination);
+          osc.start(t + o); osc.stop(t + o + 0.75);
+        });
+        setTimeout(res, 1200);
+      } catch (e) { res(); }
+    });
+  }
+
+  function pickVoice(prefs) {
+    if (!("speechSynthesis" in window)) return null;
+    const voices = speechSynthesis.getVoices();
+    for (const p of prefs) {
+      const v = voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(p.toLowerCase()));
+      if (v) return v;
+    }
+    return null;
+  }
+
+  function speak(text, prefs, fallbackLang) {
+    return new Promise((res) => {
+      if (!text || !("speechSynthesis" in window)) return res();
+      const u = new SpeechSynthesisUtterance(text);
+      const v = pickVoice(prefs);
+      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = fallbackLang;
+      u.rate = 0.95;
+      let done = false;
+      const fin = () => { if (!done) { done = true; clearTimeout(timer); res(); } };
+      const timer = setTimeout(fin, 2500 + text.length * 75); // never get stuck if speech fails
+      u.onend = fin; u.onerror = fin;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    });
+  }
+
+  async function announce() {
+    if (announcing) return;
+    announcing = true;
+    const vol = Number($("volume").value);
+    const wasPlaying = !audio.paused;
+    if (wasPlaying) audio.volume = vol * 0.15; // duck the music under the voice
+    const text = announcementText();
+    $("now-label").textContent = "Station announcement";
+    $("announce-text").textContent = "“" + text + "”";
+    await chime();
+    await speak(text, ["en-IE", "en-IN", "en-GB", "en"], "en-IE");
+    if (cfg.announcement_hindi && pickVoice(["hi"])) await speak(cfg.announcement_hindi, ["hi"], "hi-IN");
+    audio.volume = vol;
+    $("announce-text").textContent = "";
+    $("now-label").textContent = wasPlaying ? "Now playing" : $("now-label").textContent;
+    announcing = false;
+  }
+
+  // ---------- playlist ----------
+  function makeOrder() {
+    const o = tracks.map((_, i) => i);
+    if (cfg.shuffle) for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; }
+    return o;
+  }
+
+  function showNow(t) {
+    $("now-label").textContent = "Now playing";
+    $("song").textContent = t.title || "Untitled";
+    $("artist").textContent = t.artist || "";
+  }
+
+  function renderNext() {
+    const ul = $("next"); ul.textContent = "";
+    if (!tracks.length) {
+      const li = document.createElement("li"); li.className = "empty";
+      li.textContent = "No songs in the playlist yet. Add them with add_song.py.";
+      ul.appendChild(li); return;
+    }
+    for (let k = 1; k <= Math.min(3, tracks.length); k++) {
+      const t = tracks[order[(idx + k) % order.length]];
+      if (!t) continue;
+      const li = document.createElement("li");
+      li.append(t.title || "Untitled");
+      if (t.artist) { const s = document.createElement("span"); s.className = "a"; s.textContent = " · " + t.artist; li.append(s); }
+      ul.appendChild(li);
+    }
+  }
+
+  function renderCredits() {
+    const ul = $("credits"); ul.textContent = "";
+    if (!tracks.length) { const li = document.createElement("li"); li.className = "empty"; li.textContent = "Credits will appear here when songs are added."; ul.appendChild(li); return; }
+    tracks.forEach((t) => {
+      const li = document.createElement("li");
+      li.append(`“${t.title || "Untitled"}”` + (t.artist ? ` by ${t.artist}` : "") + ". Licence: ");
+      if (t.license_url) { const l = document.createElement("a"); l.href = t.license_url; l.target = "_blank"; l.rel = "noopener"; l.textContent = t.license || "see licence"; li.append(l); }
+      else li.append(t.license || "not stated");
+      if (t.source_url) {
+        const a = document.createElement("a"); a.href = t.source_url; a.target = "_blank"; a.rel = "noopener"; a.textContent = "source";
+        li.append(" (", a, ")");
+      }
+      ul.appendChild(li);
+    });
+  }
+
+  async function playNext() {
+    if (!tracks.length) {
+      $("now-label").textContent = "Off air";
+      $("song").textContent = "No songs in the playlist yet";
+      $("artist").textContent = "Add songs with add_song.py";
+      return;
+    }
+    idx++;
+    if (idx >= order.length) { order = makeOrder(); idx = 0; }
+    if (played > 0 && cfg.announce_every > 0 && played % cfg.announce_every === 0) await announce();
+    if (paused) { idx--; return; }
+    const t = tracks[order[idx]];
+    audio.src = t.file;
+    audio.volume = Number($("volume").value);
+    showNow(t);
+    renderNext();
+    played++;
+    try { await audio.play(); }
+    catch (e) { $("now-label").textContent = "Press play to continue"; }
+  }
+
+  audio.addEventListener("ended", () => { errorsInRow = 0; playNext(); });
+  audio.addEventListener("playing", () => { errorsInRow = 0; });
+  audio.addEventListener("error", () => {
+    errorsInRow++;
+    console.warn("Could not play", audio.src);
+    if (errorsInRow < tracks.length) setTimeout(playNext, 800);
+    else { $("now-label").textContent = "Off air"; $("song").textContent = "The music files could not be loaded"; $("artist").textContent = "Check the file paths in playlist.json"; }
+  });
+  audio.addEventListener("timeupdate", () => {
+    $("progress").style.width = audio.duration ? (100 * audio.currentTime / audio.duration) + "%" : "0";
+  });
+
+  // ---------- controls ----------
+  $("play").addEventListener("click", async () => {
+    if (!started) {
+      started = true; paused = false;
+      $("studio").classList.add("live");
+      $("play").textContent = "❚❚ Pause";
+      $("skip").disabled = $("id-btn").disabled = false;
+      await announce();
+      playNext();
+    } else if (!paused) {
+      paused = true; audio.pause(); speechSynthesis && speechSynthesis.cancel();
+      $("studio").classList.remove("live");
+      $("play").textContent = "▶ Resume";
+    } else {
+      paused = false;
+      $("studio").classList.add("live");
+      $("play").textContent = "❚❚ Pause";
+      if (audio.src) audio.play().catch(() => {}); else playNext();
+    }
+  });
+  $("skip").addEventListener("click", () => { if (!announcing) { audio.pause(); playNext(); } });
+  $("id-btn").addEventListener("click", () => announce());
+  $("volume").addEventListener("input", (e) => { if (!announcing) audio.volume = Number(e.target.value); });
+
+  // ---------- start ----------
+  async function init() {
+    try {
+      cfg = await fetch("playlist.json", { cache: "no-store" }).then((r) => r.json());
+    } catch (e) {
+      cfg = { station: "Irish India Radio", city: "Dublin", timezone: "Europe/Dublin", announce_every: 1, shuffle: true, tracks: [],
+              announcement: "You are listening to {station}, in {city}. It is {weekday}, the {day} of {month}, {year}. The time is {time}." };
+    }
+    tracks = (cfg.tracks || []).filter((t) => t && t.file);
+    order = makeOrder();
+    $("station").textContent = cfg.station;
+    if (cfg.news_url) $("news-link").href = cfg.news_url;
+    $("city").textContent = cfg.city + " · Ireland";
+    document.title = cfg.station + " · Live from " + cfg.city;
+    if (cfg.contact_email) { $("contact").href = "mailto:" + cfg.contact_email; $("contact").textContent = cfg.contact_email; }
+    else $("contact").parentElement.remove();
+    renderNext(); renderCredits(); tick();
+    setInterval(tick, 1000);
+    if ("speechSynthesis" in window) speechSynthesis.getVoices(); // start loading voices early
+  }
+  init();
+})();
+</script>
+</body>
+</html>
