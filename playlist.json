@@ -2,7 +2,7 @@
   "station": "Irish India Radio",
   "city": "Dublin",
   "timezone": "Europe/Dublin",
-  "contact_email": "akhilendraverma@gmail.com",
+  "contact_email": "irishindiatimes@gmail.com",
   "news_url": "https://akhilendraverma.github.io/irishindiatimes/",
   "announcement": "You are listening to {station}, in {city}. It is {weekday}, the {day} of {month}, {year}. The time is {time}.",
   "announcement_hindi": "आप सुन रहे हैं आयरिश इंडिया रेडियो, डबलिन से।",
